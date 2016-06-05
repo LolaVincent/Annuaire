@@ -17,7 +17,7 @@ public class Annuaire {
 	    DaoCat.creer(cat);
 	}
 	
-	/*public void creationAnnonce(Long categorie, String nom, String adresse, String numero) {
+	public void creationAnnonce(Long categorie, String nom, String adresse, String numero) {
 		Annonce annonce = new Annonce();
 	    annonce.setCategorie(categorie);
 	    annonce.setNom(nom);
@@ -84,6 +84,6 @@ public class Annuaire {
 	    AnnonceDaoImpl DaoAnnonce = (AnnonceDaoImpl) factory.getAnnonceDao();
 	    Annonce annonce = DaoAnnonce.trouver_par_nom(nom);
 		return annonce;
-	}*/
+	}
 	
 }
