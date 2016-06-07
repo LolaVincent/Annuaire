@@ -8,7 +8,6 @@ import dao.CategorieDaoImpl;
 import dao.DAOFactory;
 
 public class Annuaire {
-	
 	public void creationCategorie(String categorie) {
 		Categorie cat = new Categorie();
 	    cat.setSujet(categorie);
@@ -17,29 +16,33 @@ public class Annuaire {
 	    DaoCat.creer(cat);
 	}
 	
-	/*public void creationAnnonce(Long categorie, String nom, String adresse, String numero) {
+	public void creationAnnonce(int categorie_id, String nom, String adresse, String numero) {
 		Annonce annonce = new Annonce();
+		DAOFactory factory = DAOFactory.getInstance();
+		CategorieDaoImpl DaoCategorie = (CategorieDaoImpl) factory.getCategorieDao();
+		Categorie categorie = DaoCategorie.trouver(categorie_id);
 	    annonce.setCategorie(categorie);
 	    annonce.setNom(nom);
 	    annonce.setAdresse(adresse);
 	    annonce.setNumero(numero);
-        DAOFactory factory = DAOFactory.getInstance();
 	    AnnonceDaoImpl DaoAnnonce = (AnnonceDaoImpl) factory.getAnnonceDao();
 	    DaoAnnonce.creer(annonce);
 	}
-	
-	public void modificationCategorie(String sujet, Long id ) {
+
+	public void modificationCategorie(String sujet, int categorie_id ) {
 		DAOFactory factory = DAOFactory.getInstance();
 	    CategorieDaoImpl DaoCategorie = (CategorieDaoImpl) factory.getCategorieDao();
-	    Categorie categorie = DaoCategorie.trouver(id);
+	    Categorie categorie = DaoCategorie.trouver(categorie_id);
 	    categorie.setSujet(sujet);
 	    DaoCategorie.modifier(categorie);
 	}
 	
-	public void modificationAnnonce(Long categorie, String nom, String adresse, String numero, Long id)  {
+	public void modificationAnnonce(int categorie_id, String nom, String adresse, String numero, int annonce_id)  {
 		DAOFactory factory = DAOFactory.getInstance();
 	    AnnonceDaoImpl DaoAnnonce = (AnnonceDaoImpl) factory.getAnnonceDao();
-	    Annonce annonce = DaoAnnonce.trouver(id);
+	    CategorieDaoImpl DaoCategorie = (CategorieDaoImpl) factory.getCategorieDao();
+		Categorie categorie = DaoCategorie.trouver(categorie_id);
+	    Annonce annonce = DaoAnnonce.trouver(annonce_id);
 	    annonce.setNom(nom);
 	    annonce.setCategorie(categorie);
 	    annonce.setAdresse(adresse);
@@ -47,43 +50,44 @@ public class Annuaire {
 	    DaoAnnonce.modifier(annonce);
 	}
 	
-	public void suppressionCategorie(long id){
+	public void suppressionCategorie(int categorie_id){
 		DAOFactory factory = DAOFactory.getInstance();
 	    CategorieDaoImpl DaoCategorie = (CategorieDaoImpl) factory.getCategorieDao();
-	    Categorie categorie = DaoCategorie.trouver(id);
+	    Categorie categorie = DaoCategorie.trouver(categorie_id);
 	    DaoCategorie.supprimer(categorie);
 	}
 	
-	public void suppressionAnnonce(long id){
+	public void suppressionAnnonce(int annonce_id){
 		DAOFactory factory = DAOFactory.getInstance();
 	    AnnonceDaoImpl DaoAnnonce = (AnnonceDaoImpl) factory.getAnnonceDao();
-	    Annonce annonce = DaoAnnonce.trouver(id);
+	    Annonce annonce = DaoAnnonce.trouver(annonce_id);
 	    DaoAnnonce.supprimer(annonce);
 	}
 	
-	public void affichageAnnonceCategorie(Categorie categorie) {
+	public Annonce[] affichageAnnonceCategorie(int categorie_id) {
 		DAOFactory factory = DAOFactory.getInstance();
+		CategorieDaoImpl DaoCategorie = (CategorieDaoImpl) factory.getCategorieDao();
+		Categorie categorie = DaoCategorie.trouver(categorie_id);
 	    AnnonceDaoImpl DaoAnnonce = (AnnonceDaoImpl) factory.getAnnonceDao();
 	    List<Annonce> annonces = DaoAnnonce.listerCategorie(categorie.getId());
-	    for (Iterator<Annonce> it = annonces.iterator() ; it.hasNext();) {
-	    	System.out.print(it.next().getNom());
-	    }
+	    Annonce[] list_annonce = new Annonce[annonces.size()];
+	    annonces.toArray(list_annonce);
+	    return list_annonce;
 	}
 	
-	public void affichageAnnonceAdresse(String adresse) {
+	public Annonce[] affichageAnnonceAdresse(String adresse) {
 		DAOFactory factory = DAOFactory.getInstance();
 	    AnnonceDaoImpl DaoAnnonce = (AnnonceDaoImpl) factory.getAnnonceDao();
 	    List<Annonce> annonces = DaoAnnonce.listerAdresse(adresse);
-	    for (Iterator<Annonce> it = annonces.iterator() ; it.hasNext();) {
-	    	System.out.print(it.next().getNom());
-	    }
+	    Annonce[] list_annonce = new Annonce[annonces.size()];
+	    annonces.toArray(list_annonce);
+	    return list_annonce;
 	}
 	
-	public Annonce AffichageAnnonceNom(String nom) {
+	public Annonce affichageAnnonceNom(String nom) {
 		DAOFactory factory = DAOFactory.getInstance();
 	    AnnonceDaoImpl DaoAnnonce = (AnnonceDaoImpl) factory.getAnnonceDao();
 	    Annonce annonce = DaoAnnonce.trouver_par_nom(nom);
 		return annonce;
-	}*/
-	
+	}
 }

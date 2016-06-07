@@ -8,7 +8,7 @@ import java.util.ArrayList;
 public class Annonce {
 
 	private Long id;
-	private Long categorie;
+	private Categorie categorie;
 	private String nom;
 	private String adresse;
 	private String numero;
@@ -21,11 +21,11 @@ public class Annonce {
         return id;
     }
 	
-    public void setCategorie( Long categorie ) {
+    public void setCategorie( Categorie categorie ) {
         this.categorie = categorie;
     }
 	
-	public Long getCategorie() {
+	public Categorie getCategorie() {
         return categorie;
     }
 	

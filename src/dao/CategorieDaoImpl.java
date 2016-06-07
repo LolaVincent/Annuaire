@@ -17,7 +17,7 @@ public class CategorieDaoImpl implements CategorieDao {
     private static final String SQL_SELECT        = "SELECT * FROM Categorie ORDER BY id";
     private static final String SQL_SELECT_PAR_ID = "SELECT * FROM Categorie WHERE id = ?";
     private static final String SQL_SELECT_PAR_SUJET = "SELECT * FROM Categorie WHERE sujet = ?";
-    private static final String SQL_INSERT        = "INSERT INTO Categorie (sujet=?) VALUES (?)";
+    private static final String SQL_INSERT        = "INSERT INTO Categorie (sujet) VALUES (?)";
     private static final String SQL_UPDATE        = "UPDATE Categorie SET sujet=? where id=?";
     private static final String SQL_DELETE_PAR_ID = "DELETE FROM Categorie WHERE id = ?";
 

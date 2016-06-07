@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import beans.Annonce;
+import beans.Categorie;
 
 public class AnnonceDaoImpl implements AnnonceDao {
 
@@ -50,7 +51,7 @@ public class AnnonceDaoImpl implements AnnonceDao {
         try {
             connexion = daoFactory.getConnection();
             preparedStatement = initialisationRequetePreparee( connexion, SQL_INSERT, true,
-                    annonce.getCategorie(), 
+                    annonce.getCategorie().getId(), 
                     annonce.getNom(),
                     annonce.getAdresse(), 
                     annonce.getNumero() );
@@ -190,7 +191,7 @@ public class AnnonceDaoImpl implements AnnonceDao {
         try {
             connexion = daoFactory.getConnection();
             preparedStatement = initialisationRequetePreparee( connexion, SQL_UPDATE, true,
-            		annonce.getCategorie(), annonce.getNom(),
+            		annonce.getCategorie().getId(), annonce.getNom(),
             		annonce.getAdresse(), annonce.getNumero(),
             		annonce.getId());
             int statut = preparedStatement.executeUpdate();
@@ -210,7 +211,8 @@ public class AnnonceDaoImpl implements AnnonceDao {
         Annonce annonce = new Annonce();
 		CategorieDao categorieDao = daoFactory.getCategorieDao();
         annonce.setId( resultSet.getLong( "id" ) );
-        annonce.setCategorie(categorieDao.trouver(resultSet.getLong("categorie_id")).getId());
+        Categorie categorie = categorieDao.trouver(resultSet.getLong("categorie_id"));
+        annonce.setCategorie(categorie);
         annonce.setNom( resultSet.getString( "nom" ) );
         annonce.setAdresse( resultSet.getString( "adresse" ) );
         annonce.setNumero( resultSet.getString( "num" ) );
