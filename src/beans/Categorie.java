@@ -7,14 +7,14 @@ import java.util.ArrayList;
 
 public class Categorie {
 
-	private long id;
+	private int id;
 	private String sujet;	
 	
-	public void setId( long i ) {
+	public void setId( int i ) {
         this.id = i;
     }
 
-    public Long getId() {
+    public int getId() {
         return id;
     }
 		

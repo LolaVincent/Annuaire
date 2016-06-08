@@ -16,11 +16,11 @@ public class Annuaire {
 	    DaoCat.creer(cat);
 	}
 	
-	public void creationAnnonce(int categorie_id, String nom, String adresse, String numero) {
+	public void creationAnnonce(String sujet, String nom, String adresse, String numero) {
 		Annonce annonce = new Annonce();
 		DAOFactory factory = DAOFactory.getInstance();
 		CategorieDaoImpl DaoCategorie = (CategorieDaoImpl) factory.getCategorieDao();
-		Categorie categorie = DaoCategorie.trouver(categorie_id);
+		Categorie categorie = DaoCategorie.trouverSujet(sujet);
 	    annonce.setCategorie(categorie);
 	    annonce.setNom(nom);
 	    annonce.setAdresse(adresse);
@@ -64,10 +64,10 @@ public class Annuaire {
 	    DaoAnnonce.supprimer(annonce);
 	}
 	
-	public Annonce[] affichageAnnonceCategorie(int categorie_id) {
+	public Annonce[] affichageAnnonceCategorie(String sujet) {
 		DAOFactory factory = DAOFactory.getInstance();
 		CategorieDaoImpl DaoCategorie = (CategorieDaoImpl) factory.getCategorieDao();
-		Categorie categorie = DaoCategorie.trouver(categorie_id);
+		Categorie categorie = DaoCategorie.trouverSujet(sujet);
 	    AnnonceDaoImpl DaoAnnonce = (AnnonceDaoImpl) factory.getAnnonceDao();
 	    List<Annonce> annonces = DaoAnnonce.listerCategorie(categorie.getId());
 	    Annonce[] list_annonce = new Annonce[annonces.size()];
@@ -84,10 +84,36 @@ public class Annuaire {
 	    return list_annonce;
 	}
 	
+	public Annonce[] affichageAnnonce() {
+		DAOFactory factory = DAOFactory.getInstance();
+	    AnnonceDaoImpl DaoAnnonce = (AnnonceDaoImpl) factory.getAnnonceDao();
+	    List<Annonce> annonces = DaoAnnonce.lister();
+	    Annonce[] list_annonce = new Annonce[annonces.size()];
+	    annonces.toArray(list_annonce);
+	    return list_annonce;
+	    
+	}
+	
 	public Annonce affichageAnnonceNom(String nom) {
 		DAOFactory factory = DAOFactory.getInstance();
 	    AnnonceDaoImpl DaoAnnonce = (AnnonceDaoImpl) factory.getAnnonceDao();
 	    Annonce annonce = DaoAnnonce.trouver_par_nom(nom);
 		return annonce;
+	}
+	
+	public Categorie[] affichageCategorie() {
+		DAOFactory factory = DAOFactory.getInstance();
+	    CategorieDaoImpl DaoCategorie = (CategorieDaoImpl) factory.getCategorieDao();
+	    List<Categorie> categories = DaoCategorie.lister();
+	    Categorie[] list_categorie = new Categorie[categories.size()];
+	    categories.toArray(list_categorie);
+	    return list_categorie;
+	}
+	
+	public Categorie affichageCategorieNom(String sujet) {
+		DAOFactory factory = DAOFactory.getInstance();
+	    CategorieDaoImpl DaoCategorie = (CategorieDaoImpl) factory.getCategorieDao();
+	    Categorie categorie = DaoCategorie.trouverSujet(sujet);
+	    return categorie;
 	}
 }

@@ -27,7 +27,7 @@ public class CategorieDaoImpl implements CategorieDao {
         CategorieDaoImpl.daoFactory = daoFactory;
     }
 
-    public Categorie trouver( long id ) throws DAOException {
+    public Categorie trouver( int id ) throws DAOException {
         return trouver( SQL_SELECT_PAR_ID, id );
     }
     
@@ -50,7 +50,7 @@ public class CategorieDaoImpl implements CategorieDao {
             }
             valeursAutoGenerees = preparedStatement.getGeneratedKeys();
             if ( valeursAutoGenerees.next() ) {
-            	categorie.setId( valeursAutoGenerees.getLong(1));
+            	categorie.setId( valeursAutoGenerees.getInt(1));
             } else {
                 throw new DAOException( "Echec de la création du Categorie en base, aucun ID auto-généré retourné." );
             }
@@ -148,9 +148,15 @@ public class CategorieDaoImpl implements CategorieDao {
     
     private static Categorie map( ResultSet resultSet ) throws SQLException {
     	Categorie categorie = new Categorie();
-        categorie.setId( resultSet.getLong( "id" ) );
+        categorie.setId( resultSet.getInt( "id" ) );
         categorie.setSujet( resultSet.getString( "Sujet" ) );
         return categorie;
     }
+
+	@Override
+	public Categorie trouver(long id) throws DAOException {
+		// TODO Auto-generated method stub
+		return null;
+	}
 
 }
