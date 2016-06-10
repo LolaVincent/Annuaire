@@ -20,7 +20,6 @@ public class AnnonceDaoImpl implements AnnonceDao {
     private static final String SQL_SELECT_PAR_CATEGORIE 	= "SELECT * FROM Annonce WHERE categorie_id = ?";
     private static final String SQL_SELECT_PAR_NOM 			= "SELECT * FROM Annonce WHERE nom = ?";
     private static final String SQL_SELECT_PAR_ADRESSE 		= "SELECT * FROM Annonce WHERE adresse = ?";
-    private static final String SQL_SELECT_PAR_NUM 			= "SELECT * FROM Annonce WHERE num = ?";
     private static final String SQL_INSERT        			= "INSERT INTO Annonce (categorie_id,nom,adresse,num) VALUES (?, ?, ?, ?)";
     private static final String SQL_UPDATE                  = "UPDATE Annonce SET categorie_id=?, nom=?, adresse=?, num=? where id=?";
     private static final String SQL_DELETE_PAR_ID 			= "DELETE FROM Annonce WHERE id = ?";
@@ -31,7 +30,7 @@ public class AnnonceDaoImpl implements AnnonceDao {
         AnnonceDaoImpl.daoFactory = daoFactory;
     }
 
-    public Annonce trouver( int id ) throws DAOException {
+    public Annonce trouver( long id ) throws DAOException {
         return trouver( SQL_SELECT_PAR_ID, id );
     }
     
@@ -61,7 +60,7 @@ public class AnnonceDaoImpl implements AnnonceDao {
             }
             valeursAutoGenerees = preparedStatement.getGeneratedKeys();
             if ( valeursAutoGenerees.next() ) {
-                annonce.setId( valeursAutoGenerees.getInt( 1 ) );
+                annonce.setId( valeursAutoGenerees.getLong( 1 ) );
             } else {
                 throw new DAOException( "échec de la création du parcours en base, aucun ID auto-généré retourné." );
             }
@@ -94,7 +93,7 @@ public class AnnonceDaoImpl implements AnnonceDao {
         return annonces;
     }
     
-    public List<Annonce> listerCategorie(int i) throws DAOException {
+    public List<Annonce> listerCategorie(Long categorie_id) throws DAOException {
         Connection connection = null;
         PreparedStatement preparedStatement = null;
         ResultSet resultSet = null;
@@ -103,7 +102,31 @@ public class AnnonceDaoImpl implements AnnonceDao {
         try {
             connection = daoFactory.getConnection();
             preparedStatement = initialisationRequetePreparee(connection, SQL_SELECT_PAR_CATEGORIE , true,
-            		i
+            		categorie_id
+			);
+            resultSet = preparedStatement.executeQuery();
+            while ( resultSet.next() ) {
+                annonces.add( map( resultSet ) );
+            }
+        } catch ( SQLException e ) {
+            throw new DAOException( e );
+        } finally {
+            fermeturesSilencieuses( resultSet, preparedStatement, connection );
+        }
+
+        return annonces;
+    }
+    
+    public List<Annonce> listerNom(String nom) throws DAOException {
+        Connection connection = null;
+        PreparedStatement preparedStatement = null;
+        ResultSet resultSet = null;
+        List<Annonce> annonces = new ArrayList<Annonce>();
+
+        try {
+            connection = daoFactory.getConnection();
+            preparedStatement = initialisationRequetePreparee(connection, SQL_SELECT_PAR_NOM , true,
+            		nom
 			);
             resultSet = preparedStatement.executeQuery();
             while ( resultSet.next() ) {
@@ -153,7 +176,7 @@ public class AnnonceDaoImpl implements AnnonceDao {
             if ( statut == 0 ) {
                 throw new DAOException( "échec de la suppression du parcours, aucune ligne supprimée de la table." );
             } else {
-                annonce.setId(0 );
+                annonce.setId( (Long) null );
             }
         } catch ( SQLException e ) {
             throw new DAOException( e );
@@ -198,7 +221,7 @@ public class AnnonceDaoImpl implements AnnonceDao {
             if ( statut == 0 ) {
                 throw new DAOException( "Echec de la modification de l'utilisateur, aucune ligne modifié de la table." );
             } else {
-                annonce.setId(0);
+                annonce.setId((long) 0);
             }
         } catch ( SQLException e ) {
             throw new DAOException( e );
@@ -210,7 +233,7 @@ public class AnnonceDaoImpl implements AnnonceDao {
     private static Annonce map( ResultSet resultSet ) throws SQLException {
         Annonce annonce = new Annonce();
 		CategorieDao categorieDao = daoFactory.getCategorieDao();
-        annonce.setId( resultSet.getInt( "id" ) );
+        annonce.setId( resultSet.getLong( "id" ) );
         Categorie categorie = categorieDao.trouver(resultSet.getLong("categorie_id"));
         annonce.setCategorie(categorie);
         annonce.setNom( resultSet.getString( "nom" ) );
@@ -218,11 +241,5 @@ public class AnnonceDaoImpl implements AnnonceDao {
         annonce.setNumero( resultSet.getString( "num" ) );
         return annonce;
     }
-
-	@Override
-	public Annonce trouver(long id) throws DAOException {
-		// TODO Auto-generated method stub
-		return null;
-	}
 
 }

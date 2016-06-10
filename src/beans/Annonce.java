@@ -7,17 +7,17 @@ import java.util.ArrayList;
 
 public class Annonce {
 
-	private int id;
+	private Long id;
 	private Categorie categorie;
 	private String nom;
 	private String adresse;
 	private String numero;
 	
-	public void setId( int id ) {
+	public void setId( Long id ) {
         this.id = id;
     }
 
-    public int getId() {
+    public Long getId() {
         return id;
     }
 	

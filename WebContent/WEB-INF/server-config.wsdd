@@ -7,8 +7,8 @@
   <ns1:parameter name="dotNetSoapEncFix" value="true"/>
   <ns1:parameter name="enableNamespacePrefixOptimization" value="false"/>
   <ns1:parameter name="sendXMLDeclaration" value="true"/>
-  <ns1:parameter name="attachments.implementation" value="org.apache.axis.attachments.AttachmentsImpl"/>
   <ns1:parameter name="sendXsiTypes" value="true"/>
+  <ns1:parameter name="attachments.implementation" value="org.apache.axis.attachments.AttachmentsImpl"/>
   <ns1:requestFlow>
    <ns1:handler type="java:org.apache.axis.handlers.JWSHandler">
     <ns1:parameter name="scope" value="session"/>
@@ -23,47 +23,50 @@
  <ns1:handler name="Authenticate" type="java:org.apache.axis.handlers.SimpleAuthenticationHandler"/>
  <ns1:handler name="LocalResponder" type="java:org.apache.axis.transport.local.LocalResponder"/>
  <ns1:service name="Annuaire" provider="java:RPC" style="wrapped" use="literal">
-  <ns3:operation name="affichageCategorieNom" qname="ns1:affichageCategorieNom" returnQName="ns1:affichageCategorieNomReturn" returnType="ns2:Categorie" soapAction="" xmlns:ns1="http://DefaultNamespace" xmlns:ns2="http://beans" xmlns:ns3="http://xml.apache.org/axis/wsdd/">
-   <ns3:parameter qname="ns1:sujet" type="xsd:string" xmlns:xsd="http://www.w3.org/2001/XMLSchema"/>
+  <ns3:operation name="affichageAnnonce" qname="ns1:affichageAnnonce" returnQName="ns1:affichageAnnonceReturn" returnType="ns2:Annonce" soapAction="" xmlns:ns1="http://DefaultNamespace" xmlns:ns2="http://beans" xmlns:ns3="http://xml.apache.org/axis/wsdd/">
+   <ns3:parameter qname="ns1:id" type="xsd:int" xmlns:xsd="http://www.w3.org/2001/XMLSchema"/>
   </ns3:operation>
-  <ns1:operation name="suppressionAnnonce" qname="ns3:suppressionAnnonce" soapAction="" xmlns:ns3="http://DefaultNamespace">
-   <ns1:parameter qname="ns3:annonce_id" type="xsd:int" xmlns:xsd="http://www.w3.org/2001/XMLSchema"/>
+  <ns1:operation name="creationAnnonce" qname="ns3:creationAnnonce" soapAction="" xmlns:ns3="http://DefaultNamespace">
+   <ns1:parameter qname="ns3:categorie_id" type="xsd:int" xmlns:xsd="http://www.w3.org/2001/XMLSchema"/>
+   <ns1:parameter qname="ns3:nom" type="xsd:string" xmlns:xsd="http://www.w3.org/2001/XMLSchema"/>
+   <ns1:parameter qname="ns3:adresse" type="xsd:string" xmlns:xsd="http://www.w3.org/2001/XMLSchema"/>
+   <ns1:parameter qname="ns3:numero" type="xsd:string" xmlns:xsd="http://www.w3.org/2001/XMLSchema"/>
   </ns1:operation>
-  <ns1:operation name="affichageAnnonceCategorie" qname="ns4:affichageAnnonceCategorie" returnQName="ns4:affichageAnnonceCategorieReturn" returnType="ns5:Annonce" soapAction="" xmlns:ns4="http://DefaultNamespace" xmlns:ns5="http://beans">
-   <ns1:parameter qname="ns4:sujet" type="xsd:string" xmlns:xsd="http://www.w3.org/2001/XMLSchema"/>
+  <ns1:operation name="affichageCategories" qname="ns4:affichageCategories" returnQName="ns4:affichageCategoriesReturn" returnType="ns5:Categorie" soapAction="" xmlns:ns4="http://DefaultNamespace" xmlns:ns5="http://beans"/>
+  <ns1:operation name="affichageAnnonces" qname="ns6:affichageAnnonces" returnQName="ns6:affichageAnnoncesReturn" returnType="ns7:Annonce" soapAction="" xmlns:ns6="http://DefaultNamespace" xmlns:ns7="http://beans"/>
+  <ns1:operation name="affichageCategorie" qname="ns8:affichageCategorie" returnQName="ns8:affichageCategorieReturn" returnType="ns9:Categorie" soapAction="" xmlns:ns8="http://DefaultNamespace" xmlns:ns9="http://beans">
+   <ns1:parameter qname="ns8:id" type="xsd:int" xmlns:xsd="http://www.w3.org/2001/XMLSchema"/>
   </ns1:operation>
-  <ns1:operation name="affichageAnnonceAdresse" qname="ns6:affichageAnnonceAdresse" returnQName="ns6:affichageAnnonceAdresseReturn" returnType="ns7:Annonce" soapAction="" xmlns:ns6="http://DefaultNamespace" xmlns:ns7="http://beans">
-   <ns1:parameter qname="ns6:adresse" type="xsd:string" xmlns:xsd="http://www.w3.org/2001/XMLSchema"/>
+  <ns1:operation name="affichageAnnonceCategorie" qname="ns10:affichageAnnonceCategorie" returnQName="ns10:affichageAnnonceCategorieReturn" returnType="ns11:Annonce" soapAction="" xmlns:ns10="http://DefaultNamespace" xmlns:ns11="http://beans">
+   <ns1:parameter qname="ns10:sujet" type="xsd:string" xmlns:xsd="http://www.w3.org/2001/XMLSchema"/>
   </ns1:operation>
-  <ns1:operation name="affichageAnnonce" qname="ns8:affichageAnnonce" returnQName="ns8:affichageAnnonceReturn" returnType="ns9:Annonce" soapAction="" xmlns:ns8="http://DefaultNamespace" xmlns:ns9="http://beans"/>
-  <ns1:operation name="affichageAnnonceNom" qname="ns10:affichageAnnonceNom" returnQName="ns10:affichageAnnonceNomReturn" returnType="ns11:Annonce" soapAction="" xmlns:ns10="http://DefaultNamespace" xmlns:ns11="http://beans">
-   <ns1:parameter qname="ns10:nom" type="xsd:string" xmlns:xsd="http://www.w3.org/2001/XMLSchema"/>
+  <ns1:operation name="modificationCategorie" qname="ns12:modificationCategorie" soapAction="" xmlns:ns12="http://DefaultNamespace">
+   <ns1:parameter qname="ns12:sujet" type="xsd:string" xmlns:xsd="http://www.w3.org/2001/XMLSchema"/>
+   <ns1:parameter qname="ns12:id" type="xsd:int" xmlns:xsd="http://www.w3.org/2001/XMLSchema"/>
   </ns1:operation>
-  <ns1:operation name="affichageCategorie" qname="ns12:affichageCategorie" returnQName="ns12:affichageCategorieReturn" returnType="ns13:Categorie" soapAction="" xmlns:ns12="http://DefaultNamespace" xmlns:ns13="http://beans"/>
-  <ns1:operation name="creationAnnonce" qname="ns14:creationAnnonce" soapAction="" xmlns:ns14="http://DefaultNamespace">
-   <ns1:parameter qname="ns14:sujet" type="xsd:string" xmlns:xsd="http://www.w3.org/2001/XMLSchema"/>
-   <ns1:parameter qname="ns14:nom" type="xsd:string" xmlns:xsd="http://www.w3.org/2001/XMLSchema"/>
-   <ns1:parameter qname="ns14:adresse" type="xsd:string" xmlns:xsd="http://www.w3.org/2001/XMLSchema"/>
-   <ns1:parameter qname="ns14:numero" type="xsd:string" xmlns:xsd="http://www.w3.org/2001/XMLSchema"/>
+  <ns1:operation name="affichageAnnonceAdresse" qname="ns13:affichageAnnonceAdresse" returnQName="ns13:affichageAnnonceAdresseReturn" returnType="ns14:Annonce" soapAction="" xmlns:ns13="http://DefaultNamespace" xmlns:ns14="http://beans">
+   <ns1:parameter qname="ns13:adresse" type="xsd:string" xmlns:xsd="http://www.w3.org/2001/XMLSchema"/>
   </ns1:operation>
   <ns1:operation name="creationCategorie" qname="ns15:creationCategorie" soapAction="" xmlns:ns15="http://DefaultNamespace">
    <ns1:parameter qname="ns15:categorie" type="xsd:string" xmlns:xsd="http://www.w3.org/2001/XMLSchema"/>
   </ns1:operation>
-  <ns1:operation name="modificationCategorie" qname="ns16:modificationCategorie" soapAction="" xmlns:ns16="http://DefaultNamespace">
-   <ns1:parameter qname="ns16:sujet" type="xsd:string" xmlns:xsd="http://www.w3.org/2001/XMLSchema"/>
-   <ns1:parameter qname="ns16:categorie_id" type="xsd:int" xmlns:xsd="http://www.w3.org/2001/XMLSchema"/>
+  <ns1:operation name="suppressionCategorie" qname="ns16:suppressionCategorie" soapAction="" xmlns:ns16="http://DefaultNamespace">
+   <ns1:parameter qname="ns16:id" type="xsd:int" xmlns:xsd="http://www.w3.org/2001/XMLSchema"/>
   </ns1:operation>
-  <ns1:operation name="modificationAnnonce" qname="ns17:modificationAnnonce" soapAction="" xmlns:ns17="http://DefaultNamespace">
-   <ns1:parameter qname="ns17:categorie_id" type="xsd:int" xmlns:xsd="http://www.w3.org/2001/XMLSchema"/>
+  <ns1:operation name="affichageAnnonceNom" qname="ns17:affichageAnnonceNom" returnQName="ns17:affichageAnnonceNomReturn" returnType="ns18:Annonce" soapAction="" xmlns:ns17="http://DefaultNamespace" xmlns:ns18="http://beans">
    <ns1:parameter qname="ns17:nom" type="xsd:string" xmlns:xsd="http://www.w3.org/2001/XMLSchema"/>
-   <ns1:parameter qname="ns17:adresse" type="xsd:string" xmlns:xsd="http://www.w3.org/2001/XMLSchema"/>
-   <ns1:parameter qname="ns17:numero" type="xsd:string" xmlns:xsd="http://www.w3.org/2001/XMLSchema"/>
-   <ns1:parameter qname="ns17:annonce_id" type="xsd:int" xmlns:xsd="http://www.w3.org/2001/XMLSchema"/>
   </ns1:operation>
-  <ns1:operation name="suppressionCategorie" qname="ns18:suppressionCategorie" soapAction="" xmlns:ns18="http://DefaultNamespace">
-   <ns1:parameter qname="ns18:categorie_id" type="xsd:int" xmlns:xsd="http://www.w3.org/2001/XMLSchema"/>
+  <ns1:operation name="modificationAnnonce" qname="ns19:modificationAnnonce" soapAction="" xmlns:ns19="http://DefaultNamespace">
+   <ns1:parameter qname="ns19:categorie_id" type="xsd:int" xmlns:xsd="http://www.w3.org/2001/XMLSchema"/>
+   <ns1:parameter qname="ns19:nom" type="xsd:string" xmlns:xsd="http://www.w3.org/2001/XMLSchema"/>
+   <ns1:parameter qname="ns19:adresse" type="xsd:string" xmlns:xsd="http://www.w3.org/2001/XMLSchema"/>
+   <ns1:parameter qname="ns19:numero" type="xsd:string" xmlns:xsd="http://www.w3.org/2001/XMLSchema"/>
+   <ns1:parameter qname="ns19:annonce_id" type="xsd:int" xmlns:xsd="http://www.w3.org/2001/XMLSchema"/>
   </ns1:operation>
-  <ns1:parameter name="allowedMethods" value="affichageCategorie affichageCategorieNom suppressionCategorie creationCategorie modificationAnnonce affichageAnnonceNom affichageAnnonce creationAnnonce modificationCategorie affichageAnnonceAdresse suppressionAnnonce affichageAnnonceCategorie"/>
+  <ns1:operation name="suppressionAnnonce" qname="ns20:suppressionAnnonce" soapAction="" xmlns:ns20="http://DefaultNamespace">
+   <ns1:parameter qname="ns20:id" type="xsd:int" xmlns:xsd="http://www.w3.org/2001/XMLSchema"/>
+  </ns1:operation>
+  <ns1:parameter name="allowedMethods" value="affichageCategorie creationCategorie affichageAnnonceNom modificationCategorie affichageAnnonces affichageAnnonceAdresse affichageAnnonceCategorie suppressionCategorie modificationAnnonce affichageCategories affichageAnnonce creationAnnonce suppressionAnnonce"/>
   <ns1:parameter name="typeMappingVersion" value="1.2"/>
   <ns1:parameter name="wsdlPortType" value="Annuaire"/>
   <ns1:parameter name="className" value="Annuaire"/>
@@ -71,8 +74,8 @@
   <ns1:parameter name="schemaQualified" value="http://beans,http://DefaultNamespace"/>
   <ns1:parameter name="wsdlTargetNamespace" value="http://DefaultNamespace"/>
   <ns1:parameter name="wsdlServiceElement" value="AnnuaireService"/>
-  <ns1:typeMapping deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory" encodingStyle="" qname="ns19:Annonce" serializer="org.apache.axis.encoding.ser.BeanSerializerFactory" type="java:beans.Annonce" xmlns:ns19="http://beans"/>
-  <ns1:typeMapping deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory" encodingStyle="" qname="ns20:Categorie" serializer="org.apache.axis.encoding.ser.BeanSerializerFactory" type="java:beans.Categorie" xmlns:ns20="http://beans"/>
+  <ns1:typeMapping deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory" encodingStyle="" qname="ns21:Annonce" serializer="org.apache.axis.encoding.ser.BeanSerializerFactory" type="java:beans.Annonce" xmlns:ns21="http://beans"/>
+  <ns1:typeMapping deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory" encodingStyle="" qname="ns22:Categorie" serializer="org.apache.axis.encoding.ser.BeanSerializerFactory" type="java:beans.Categorie" xmlns:ns22="http://beans"/>
  </ns1:service>
  <ns1:service name="AdminService" provider="java:MSG">
   <ns1:parameter name="allowedMethods" value="AdminService"/>
